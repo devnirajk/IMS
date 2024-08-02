@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -31,8 +32,9 @@ class OrganisationServiceImpl implements OrganisationService{
 
     @Autowired
     RedisTemplate redisTemplate;
+
     @Autowired
-    private DefaultErrorAttributes errorAttributes;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public String verifyOrganisationEmail(String email){
@@ -63,6 +65,7 @@ class OrganisationServiceImpl implements OrganisationService{
 
         organisation.setCreatedAt(new Date());
         organisation.setUpdatedAt(new Date());
+        organisation.setAdminPassword(passwordEncoder.encode(organisationRequestDto.getAdminPassword()));
 
         // Save the organisation entity to the database
         Organisation savedOrganisation = organisationRepository.save(organisation);
