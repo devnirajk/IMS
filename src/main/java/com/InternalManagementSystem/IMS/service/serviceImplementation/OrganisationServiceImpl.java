@@ -8,7 +8,6 @@ import com.InternalManagementSystem.IMS.service.EmailService;
 import com.InternalManagementSystem.IMS.service.OrganisationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
