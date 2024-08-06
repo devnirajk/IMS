@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/employees")
 public class EmployeeController {
 

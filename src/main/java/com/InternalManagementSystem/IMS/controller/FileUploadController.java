@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/upload-file")
 public class FileUploadController {
 
