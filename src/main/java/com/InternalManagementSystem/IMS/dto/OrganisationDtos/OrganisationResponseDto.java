@@ -12,4 +12,7 @@ public class OrganisationResponseDto {
     String businessPhone;
     String adminEmail;
     String officeAddress;
+    String city;
+    String state;
+    String pincode;
 }

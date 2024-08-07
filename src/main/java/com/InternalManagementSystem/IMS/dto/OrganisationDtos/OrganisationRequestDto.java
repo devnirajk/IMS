@@ -13,4 +13,7 @@ public class OrganisationRequestDto {
     String adminEmail;
     String adminPassword;
     String officeAddress;
+    String city;
+    String state;
+    String pincode;
 }
