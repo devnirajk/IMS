@@ -15,11 +15,19 @@ public class Organisation extends BaseModel{
     @Column(length = 2048)
     String companyLogoURL;
 
+    @Column(unique = true)
     String gstIN;
+
+    @Column(unique=true)
     String pan;
+
+
     String businessEmail;
     String businessPhone;
+
+    @Column(unique=true)
     String adminEmail;
+
     String adminPassword;
     String officeAddress;
     String city;

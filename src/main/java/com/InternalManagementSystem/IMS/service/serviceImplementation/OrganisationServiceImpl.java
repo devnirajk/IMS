@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 class OrganisationServiceImpl implements OrganisationService{
@@ -41,22 +42,22 @@ class OrganisationServiceImpl implements OrganisationService{
         if(otp.length() < 4){
             otp+=1;
         }
-        redisTemplate.opsForValue().set(email, otp);
+
+        redisTemplate.opsForValue().set(email, otp, 300L, TimeUnit.SECONDS);
         return emailService.sendSimpleMail(email, otp);
     }
 
     @Override
-    public boolean verifyOtp(String email, String otp){
-        String savedOtp = redisTemplate.opsForValue().get(email).toString();
-
-        if(savedOtp.equals(otp)){
-            return true;
-        } else{
+    public boolean verifyOtp(String email, String otp) {
+        try {
+            String savedOtp = redisTemplate.opsForValue().get(email).toString();
+            return otp.equals(savedOtp);
+        } catch (Exception e) {
             return false;
         }
     }
 
-     @Override
+    @Override
      public OrganisationResponseDto addOrganisation(OrganisationRequestDto organisationRequestDto) {
         try {
         // Map the DTO to the entity
@@ -73,7 +74,6 @@ class OrganisationServiceImpl implements OrganisationService{
         // Map the saved entity to the response DTO
         return modelMapper.map(savedOrganisation, OrganisationResponseDto.class);
     } catch (Exception e) {
-            System.out.println(e);
         throw new RuntimeException("Error creating organisation", e);
     }
 }
